@@ -1,53 +1,52 @@
 {
   "1": {
-    "title": "NextCare: متابعة الموافقات  Pending وتفاصيل ردود الجهات",
+    "title": "NextCare: متابعة الموافقات Pending وتفاصيل ردود الجهات",
     "type": "video",
-    "src": "media/https://drive.google.com/file/d/1veDvjvsULygQcc8kFeYP77QpJO1l_x8k/view?usp=sharing"
+    "src": "https://drive.google.com/uc?export=download&id=1veDvjvsULygQcc8kFeYP77QpJO1l_x8k"
   },
   "3": {
     "title": "Yodawy: آلية إدخال واحتساب جرعات أدوية الشرب",
     "type": "video",
-    "src": "media/https://drive.google.com/file/d/1pPZRvrKI1a1t-KNgyNnJWvtWnGye31uE/view?usp=sharing"
+    "src": "https://drive.google.com/uc?export=download&id=1pPZRvrKI1a1t-KNgyNnJWvtWnGye31uE"
   },
   "4": {
     "title": "Yodawy: تحديد فئات وحدات الصرف (شريط / علبة / أمبول)",
     "type": "video",
-    "src": "media/https://drive.google.com/file/d/1pPZRvrKI1a1t-KNgyNnJWvtWnGye31uE/view?usp=sharing"
+    "src": "https://drive.google.com/uc?export=download&id=1pPZRvrKI1a1t-KNgyNnJWvtWnGye31uE"
   },
   "5": {
     "title": "Yodawy: قنوات المساعدة الفورية عبر QR Code والاتصال المباشر",
     "type": "video",
-    "src": "media/video-yodawy-contact.mp4"
+    "src": "video-yodawy-contact.mp4"
   },
   "6": {
     "title": "NiceDeer: شاشة التحميل والشعار لمنع الاستخدام المزدوج",
     "type": "video",
-    "src": "media/video-nicedeer-loader.mp4"
+    "src": "video-nicedeer-loader.mp4"
   },
   "10": {
     "title": "DMS: نموذج إيصال الصرف والموافقة المباشرة (Printout)",
     "type": "image",
-    "src": "media/printout-dms.jpeg"
+    "src": "printout-dms.jpeg"
   },
   "11": {
     "title": "NextCare: نموذج المطالبة المطبوعة (A4 Printout)",
     "type": "image",
-    "src": "media/printout-nextcare.jpeg"
+    "src": "printout-nextcare.jpeg"
   },
   "12": {
     "title": "Yodawy: نموذج الإيصال الحراري المختصر (Thermal Printout)",
     "type": "image",
-    "src": "media/printout-yodawy.jpeg"
+    "src": "printout-yodawy.jpeg"
   },
   "13": {
     "title": "NiceDeer: نموذج التقرير الإلكتروني المعتمد (Web PDF)",
     "type": "image",
-    "src": "media/printout-nicedeer.jpeg"
+    "src": "printout-nicedeer.jpeg"
   },
   "14": {
     "title": "MedRight: استمارة صرف الروشتات المعتمدة (Direct Receipt)",
     "type": "image",
-    "src": "media/printout-medright.jpeg"
+    "src": "printout-medright.jpeg"
   }
-
 }
