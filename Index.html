@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title id="tab-title">DMS System Showcase</title>
+    <title id="tab-title">DMS Interactive Showcase</title>
 
-    <!-- أيقونة المتصفح في شريط التبويب العلوي (Favicon) -->
+    <!-- أيقونة التبويب العلوية (Favicon) -->
     <link rel="icon" type="image/png" href="dms-silver-logo.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
         }
 
         body {
-            background-color: #6a348c; /* اللون البنفسجي الأساسي */
+            background-color: #6a348c;
             min-height: 100vh;
             min-height: 100dvh;
             display: flex;
@@ -32,15 +32,13 @@
             overflow-x: hidden;
         }
 
-        /* =========================================================
-           لوجو DMS المائي الموزع على جانبي الخلفية بدقة
-           ========================================================= */
+        /* العلامة المائية لشعار DMS على جانبي الشاشة */
         .bg-watermark {
             position: fixed;
             width: 520px;
             height: 520px;
             pointer-events: none;
-            opacity: 0.12; /* درجة الشفافية المائية المناسبة للتصميم */
+            opacity: 0.12;
             filter: grayscale(100%) brightness(200%);
             z-index: 0;
             user-select: none;
@@ -58,7 +56,6 @@
             transform: rotate(20deg);
         }
 
-        /* الحاوية العلوية للعنوان */
         .header-container {
             width: 100%;
             max-width: 960px;
@@ -76,7 +73,6 @@
             padding: 0 8px;
         }
 
-        /* مساحة العرض المركزية */
         .showcase-area {
             flex: 1;
             width: 100%;
@@ -87,9 +83,7 @@
             z-index: 2;
         }
 
-        /* =========================================================
-           1. فريم الفيديو: شاشة عريضة 16:9 بنوافذ التحكم العصرية
-           ========================================================= */
+        /* فريم الفيديو التفاعلي */
         .custom-video-frame {
             width: 100%;
             background: #10081a;
@@ -142,16 +136,15 @@
             justify-content: center;
         }
 
-        .video-box video {
+        .video-box video, .video-box iframe {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            border: none;
             outline: none;
+            object-fit: contain;
         }
 
-        /* =========================================================
-           2. فريم الصورة: لوحة مستندات مع أدوات التحكم والتكبير
-           ========================================================= */
+        /* فريم المستندات والصور مع التكبير */
         .custom-image-frame {
             width: 100%;
             background: rgba(18, 10, 28, 0.9);
@@ -211,7 +204,6 @@
             justify-content: center;
             background: #0a0510;
             padding: 16px;
-            -webkit-overflow-scrolling: touch;
         }
 
         .image-canvas img {
@@ -224,7 +216,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
-        /* زر الرجوع للأسفل */
         .footer-nav {
             margin-top: 22px;
             z-index: 2;
@@ -240,6 +231,7 @@
             font-weight: 700;
             border: 1px solid rgba(255, 255, 255, 0.22);
             transition: background 0.2s;
+            cursor: pointer;
             display: inline-block;
         }
 
@@ -248,60 +240,17 @@
             color: #6a348c;
         }
 
-        /* ضبط التجاوب التام لشاشات الموبايل */
         @media screen and (max-width: 768px) {
-            body {
-                padding: 16px 10px 25px;
-            }
-
-            .bg-watermark {
-                width: 320px;
-                height: 320px;
-            }
-
-            .bg-watermark.left {
-                top: 8%;
-                left: -120px;
-            }
-
-            .bg-watermark.right {
-                bottom: 6%;
-                right: -120px;
-            }
-
-            .custom-video-frame {
-                padding: 8px;
-                border-radius: 14px;
-            }
-
-            .custom-image-frame {
-                border-radius: 14px;
-            }
-
-            .image-canvas {
-                min-height: 360px;
-                max-height: 62vh;
-                padding: 8px;
-            }
-
-            .image-toolbar {
-                padding: 0 10px;
-            }
-
-            .toolbar-text {
-                font-size: 0.74rem;
-            }
-
-            .zoom-btn {
-                padding: 3px 8px;
-                font-size: 0.72rem;
-            }
+            body { padding: 16px 10px 25px; }
+            .bg-watermark { width: 300px; height: 300px; }
+            .custom-video-frame { padding: 8px; border-radius: 14px; }
+            .image-canvas { min-height: 360px; max-height: 60vh; padding: 6px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- صور لوجو DMS المائي في الخلفية يميناً ويساراً -->
+    <!-- الشعار المائي في الخلفية -->
     <img src="dms-silver-logo.png" class="bg-watermark left" alt="Watermark Left">
     <img src="dms-silver-logo.png" class="bg-watermark right" alt="Watermark Right">
 
@@ -311,85 +260,135 @@
 
     <div class="showcase-area" id="showcase-area"></div>
 
- 
+    <div class="footer-nav">
+        <a onclick="window.history.back()" class="btn-back">← العودة للتقرير التقديمي</a>
+    </div>
 
     <script>
-        async function loadContent() {
-            try {
-                const response = await fetch('items.json');
-                const data = await response.json();
+        // قاعدة البيانات مدمجة هنا مباشرة لتفادي أي خطأ شبكة أو 404 في جلب JSON
+        const items = {
+            "1": {
+                "title": "NextCare: متابعة الموافقات Pending وتفاصيل ردود الجهات",
+                "type": "drive_video",
+                "src": "https://drive.google.com/file/d/1veDvjvsULygQcc8kFeYP77QpJO1l_x8k/preview"
+            },
+            "3": {
+                "title": "Yodawy: آلية إدخال واحتساب جرعات أدوية الشرب",
+                "type": "drive_video",
+                "src": "https://drive.google.com/file/d/1pPZRvrKI1a1t-KNgyNnJWvtWnGye31uE/preview"
+            },
+            "4": {
+                "title": "Yodawy: تحديد فئات وحدات الصرف (شريط / علبة / أمبول)",
+                "type": "drive_video",
+                "src": "https://drive.google.com/file/d/1pPZRvrKI1a1t-KNgyNnJWvtWnGye31uE/preview"
+            },
+            "5": {
+                "title": "Yodawy: قنوات المساعدة الفورية عبر QR Code والاتصال المباشر",
+                "type": "video",
+                "src": "video-yodawy-contact.mp4"
+            },
+            "6": {
+                "title": "NiceDeer: شاشة التحميل والشعار لمنع الاستخدام المزدوج",
+                "type": "video",
+                "src": "video-nicedeer-loader.mp4"
+            },
+            "10": {
+                "title": "DMS: نموذج إيصال الصرف والموافقة المباشرة (Printout)",
+                "type": "image",
+                "src": "printout-dms.jpeg"
+            },
+            "11": {
+                "title": "NextCare: نموذج المطالبة المطبوعة (A4 Printout)",
+                "type": "image",
+                "src": "printout-nextcare.jpeg"
+            },
+            "12": {
+                "title": "Yodawy: نموذج الإيصال الحراري المختصر (Thermal Printout)",
+                "type": "image",
+                "src": "printout-yodawy.jpeg"
+            },
+            "13": {
+                "title": "NiceDeer: نموذج التقرير الإلكتروني المعتمد (Web PDF)",
+                "type": "image",
+                "src": "printout-nicedeer.jpeg"
+            },
+            "14": {
+                "title": "MedRight: استمارة صرف الروشتات المعتمدة (Direct Receipt)",
+                "type": "image",
+                "src": "printout-medright.jpeg"
+            }
+        };
 
-                // قراءة الـ id من الرابط
-                const params = new URLSearchParams(window.location.search);
-                const currentId = params.get('id') || "1";
-                const item = data[currentId] || data["1"];
+        function renderPage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id') || "5";
+            const item = items[id] || items["5"];
 
-                // تحديث عنوان الصفحة ولسان التبويب في المتصفح
-                document.getElementById('page-title').textContent = item.title;
-                document.getElementById('tab-title').textContent = item.title;
+            document.getElementById('page-title').textContent = item.title;
+            document.getElementById('tab-title').textContent = item.title;
 
-                const container = document.getElementById('showcase-area');
+            const container = document.getElementById('showcase-area');
 
-                if (item.type === "video") {
-                    container.innerHTML = `
-                        <div class="custom-video-frame">
-                            <div class="frame-header">
-                                <div class="window-dots">
-                                    <span class="dot-red"></span>
-                                    <span class="dot-yellow"></span>
-                                    <span class="dot-green"></span>
-                                </div>
-                                <span class="frame-label">DMS Interactive Video Player</span>
+            if (item.type === "video") {
+                container.innerHTML = `
+                    <div class="custom-video-frame">
+                        <div class="frame-header">
+                            <div class="window-dots">
+                                <span class="dot-red"></span>
+                                <span class="dot-yellow"></span>
+                                <span class="dot-green"></span>
                             </div>
-                            <div class="video-box">
-                                <video controls autoplay playsinline src="${item.src}">
-                                    المتصفح لا يدعم تشغيل هذا الفيديو.
-                                </video>
+                            <span class="frame-label">DMS Interactive Video Player</span>
+                        </div>
+                        <div class="video-box">
+                            <video controls autoplay playsinline preload="auto" src="${item.src}">
+                                المتصفح لا يدعم هذا الفيديو.
+                            </video>
+                        </div>
+                    </div>
+                `;
+            } else if (item.type === "drive_video") {
+                container.innerHTML = `
+                    <div class="custom-video-frame">
+                        <div class="frame-header">
+                            <div class="window-dots">
+                                <span class="dot-red"></span>
+                                <span class="dot-yellow"></span>
+                                <span class="dot-green"></span>
+                            </div>
+                            <span class="frame-label">DMS Drive Streaming Player</span>
+                        </div>
+                        <div class="video-box">
+                            <iframe src="${item.src}" allow="autoplay; fullscreen"></iframe>
+                        </div>
+                    </div>
+                `;
+            } else if (item.type === "image") {
+                container.innerHTML = `
+                    <div class="custom-image-frame">
+                        <div class="image-toolbar">
+                            <span class="toolbar-text">نموذج المستند المعتمد</span>
+                            <div class="toolbar-btns">
+                                <button class="zoom-btn" id="zin">تكبير (+)</button>
+                                <button class="zoom-btn" id="zout">تصغير (-)</button>
+                                <button class="zoom-btn" id="zreset">إعادة ضبط</button>
                             </div>
                         </div>
-                    `;
-                } else if (item.type === "image") {
-                    container.innerHTML = `
-                        <div class="custom-image-frame">
-                            <div class="image-toolbar">
-                                <span class="toolbar-text">نموذج المستند المعتمد</span>
-                                <div class="toolbar-btns">
-                                    <button class="zoom-btn" id="zin">تكبير (+)</button>
-                                    <button class="zoom-btn" id="zout">تصغير (-)</button>
-                                    <button class="zoom-btn" id="zreset">إعادة ضبط</button>
-                                </div>
-                            </div>
-                            <div class="image-canvas" id="canvas">
-                                <img id="zoom-img" src="${item.src}" alt="${item.title}" onerror="this.src='https://placehold.co/600x850/11071c/ffffff?text=Document+Image+Preview'">
-                            </div>
+                        <div class="image-canvas" id="canvas">
+                            <img id="zoom-img" src="${item.src}" alt="${item.title}">
                         </div>
-                    `;
+                    </div>
+                `;
 
-                    // تفعيل التحكم في التكبير
-                    const img = document.getElementById('zoom-img');
-                    let scale = 1;
-
-                    document.getElementById('zin').onclick = () => {
-                        scale = Math.min(scale + 0.35, 3.5);
-                        img.style.transform = `scale(${scale})`;
-                    };
-
-                    document.getElementById('zout').onclick = () => {
-                        scale = Math.max(scale - 0.35, 0.7);
-                        img.style.transform = `scale(${scale})`;
-                    };
-
-                    document.getElementById('zreset').onclick = () => {
-                        scale = 1;
-                        img.style.transform = `scale(1)`;
-                    };
-                }
-            } catch (err) {
-                document.getElementById('page-title').textContent = "خطأ في قراءة ملف items.json";
+                const img = document.getElementById('zoom-img');
+                let scale = 1;
+                document.getElementById('zin').onclick = () => { scale = Math.min(scale + 0.35, 3.5); img.style.transform = `scale(${scale})`; };
+                document.getElementById('zout').onclick = () => { scale = Math.max(scale - 0.35, 0.7); img.style.transform = `scale(${scale})`; };
+                document.getElementById('zreset').onclick = () => { scale = 1; img.style.transform = `scale(1)`; };
             }
         }
 
-        loadContent();
+        window.onload = renderPage;
     </script>
 </body>
 </html>
